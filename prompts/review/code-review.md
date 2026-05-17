@@ -1,38 +1,71 @@
----
+<!--
 id: review/code-review
 version: 0.1.0
-purpose: Review a phase implementation against the plan
-inputs: [plan, phase, git diff]
-outputs: [.ai/plans/NNN-<slug>.review.md with review_type: code]
-next_stage: REVIEW_ADDRESS
----
+purpose: Review the code changes produced by phase-execute against the plan and repo conventions
+inputs:
+  - plan_id
+  - phase_number
+outputs:
+  - .ai/reviews/<plan-id>-phase-<n>.code-review.md
+-->
 
-{{> _partials/orient }}
-{{> _partials/quant-guardrails }}
+{{> _partials/preamble-orient }}
 
 ## Task
+Review the code changes from Phase **{{PHASE_NUMBER}}** of plan **{{PLAN_ID}}**. Produce a findings list with severity levels. Do not modify code.
 
-Review the implementation of Phase {{PHASE_NUMBER}} of `.ai/plans/{{PLAN_ID}}-{{SLUG}}.md`.
+## User must provide
+- **plan_id**, **phase_number**.
 
-Inputs:
-- Plan and phase definition
-- Git diff: `git diff $(git merge-base HEAD main)...HEAD`
+## AI must do
+1. Read the plan's phase section, the codebase map, and conventions file.
+2. Run:
+   - `git diff <merge-base>..HEAD --stat`
+   - `git diff <merge-base>..HEAD` (or per file if too large)
+3. For each modified file, evaluate against:
+   - **Scope**: was anything modified outside the phase's scope lock?
+   - **Plan adherence**: does the change implement what the phase specified?
+   - **Conventions**: dataclass usage, slots/frozen, UTC timestamps, no raw provider dicts past normalization, no silent failure.
+   - **Ownership**: state owners not doing I/O; normalizers as single raw boundary; orchestration in engine/task layers.
+   - **Invariants**: do the changes preserve invariants stated in the plan?
+   - **Tests**: tests assigned by the phase exist, cover happy path / boundary / malformed / ordering / idempotency, and assertions are not weakened.
+   - **Error handling**: failure paths raise / log / reject / mark-stale per the plan, not silently continue.
+   - **Quant guardrails** (if applicable): no lookahead, no leakage, time boundaries explicit.
+4. Classify each finding:
+   - **MUST-FIX** — blocks acceptance.
+   - **SHOULD-FIX** — worth fixing this phase if cheap, else defer to FOLLOWUPS.
+   - **NIT** — style, naming, comment. Optional.
+5. Note any **deviations from the plan** that the executor flagged or that you discovered.
 
-MANDATORY first step — deviation check:
-1. Run `python .ai/kit/scripts/deviation-check.py {{PLAN_ID}} {{PHASE_NUMBER}}`.
-2. Every flagged file is an `Out-of-scope addition` finding.
+## Output format
+Write to `.ai/reviews/<plan-id>-phase-<phase_number>.code-review.md`:
+```markdown
+# Code review: <plan-id> phase <n>
+Date: <yyyy-mm-dd>
 
-Then assess against the code-review schema sections:
-- **In-scope, passed** — for each acceptance criterion: how was it verified?
-- **In-scope, failed** — criteria not met, with evidence.
-- **Out-of-scope additions** — from deviation check.
-- **Missing deliverables** — criteria not addressed at all.
-- **Quality findings** — file:line, severity, issue, suggested fix.
+## Scope check
+- Files modified: <list>
+- Files in scope-lock: <list>
+- Out-of-scope changes: <list or "none">
 
-Apply quant guardrails. Flag any lookahead, leakage, or sample-selection issues regardless of phase scope.
+## Findings
+### MUST-FIX
+1. **<file>:<line>** — <issue>. Evidence: <quote/cite>.
+### SHOULD-FIX
+1. ...
+### NIT
+1. ...
 
-Append output to `.ai/plans/{{PLAN_ID}}-{{SLUG}}.review.md` with `review_type: code`. Set `verdict`.
+## Deviations
+- <list or "none">
 
-Do not modify code. Review only.
+## Verdict
+PASS | NEEDS-ADDRESS
+```
 
-{{> _partials/exit }}
+## Constraints
+- Cite file:line for every finding. No vague "consider improving X."
+- Do not write or apply fixes. The next prompt (`review/review-address`) does that.
+- A clean review is a valid outcome. Do not invent findings to look thorough.
+
+{{> _partials/postamble-wrap }}

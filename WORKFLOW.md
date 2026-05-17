@@ -14,20 +14,29 @@ Side stage callable at any point: SESSION_WRAP.
 
 ## Stage → prompt map
 
-| Stage          | Trigger prompt                              |
-|----------------|---------------------------------------------|
-| CHARTER        | prompts/planning/charter.md                 |
-| DISCOVERY      | prompts/discovery/understand-codebase.md    |
-| PLAN           | prompts/planning/plan-create.md             |
-| PLAN_REVIEW    | prompts/planning/plan-review.md             |
-| PLAN_REDTEAM   | prompts/planning/plan-redteam.md            |
-| PLAN_REVISE    | prompts/planning/plan-revise.md             |
-| EXECUTE        | prompts/execution/phase-execute.md          |
-| CODE_REVIEW    | prompts/review/code-review.md               |
-| REVIEW_ADDRESS | prompts/review/review-address.md            |
-| VERIFY         | prompts/review/verify.md                    |
-| INTEGRATE      | prompts/operations/integrate.md             |
-| SESSION_WRAP   | prompts/meta/session-wrap.md                |
+| Stage              | Trigger prompt                              | Notes                                          |
+|--------------------|---------------------------------------------|------------------------------------------------|
+| INIT               | prompts/meta/init-project.md                | One-time per project, before CHARTER           |
+| CHARTER            | prompts/planning/charter.md                 |                                                |
+| DISCOVERY          | prompts/discovery/understand-codebase.md    | Required before PLAN                           |
+| BRAINSTORM         | prompts/planning/brainstorm.md              | Optional; exploratory work pre-plan            |
+| PLAN               | prompts/planning/plan-create.md             |                                                |
+| PLAN_REVIEW        | prompts/planning/plan-review.md             |                                                |
+| PLAN_REDTEAM       | prompts/planning/plan-redteam.md            | Run on a different LLM if possible             |
+| PLAN_CROSS_ANALYZE | prompts/planning/plan-cross-analyze.md      | Optional; merge another engineer's revisions   |
+| PLAN_REVISE        | prompts/planning/plan-revise.md             | Human flips status → approved                  |
+| EXECUTE            | prompts/execution/phase-execute.md          | One phase per invocation                       |
+| CODE_REVIEW        | prompts/review/code-review.md               |                                                |
+| REVIEW_ADDRESS     | prompts/review/review-address.md            |                                                |
+| VERIFY             | prompts/review/verify.md                    | Loop back to REVIEW_ADDRESS if unresolved      |
+| INTEGRATE          | prompts/operations/integrate.md             | Then next phase, or back to CHARTER            |
+| SESSION_WRAP       | prompts/meta/session-wrap.md                | Run before clearing context, always            |
+
+## Off-workflow prompts
+
+| When                                | Prompt                  |
+|-------------------------------------|-------------------------|
+| Don't know which stage you're in    | prompts/meta/route.md   |
 
 ## Tier variants
 

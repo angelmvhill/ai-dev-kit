@@ -1,26 +1,58 @@
----
+<!--
 id: review/verify
 version: 0.1.0
-purpose: Confirm review findings are resolved
-inputs: [review file, new diff]
-outputs: [review file with resolved markers; STATE advanced on pass]
-next_stage: INTEGRATE
----
+purpose: Confirm that each MUST-FIX finding from the code review is resolved
+inputs:
+  - plan_id
+  - phase_number
+  - review_path
+outputs:
+  - .ai/reviews/<plan-id>-phase-<n>.verify.md
+  - STATE.md status advance on PASS
+-->
 
-{{> _partials/orient }}
+{{> _partials/preamble-orient }}
 
 ## Task
+Re-review only the deltas since `review/code-review`. Confirm that each MUST-FIX is resolved, accepted SHOULD-FIXes are resolved or properly deferred, and no new regressions were introduced.
 
-Verify each must-fix and should-fix finding in `.ai/plans/{{PLAN_ID}}-{{SLUG}}.review.md` is resolved in the current diff.
+## User must provide
+- **plan_id**, **phase_number**, **review_path**.
 
-For each finding:
-- Confirm the cited issue is fixed; cite the line or commit.
-- If a finding cannot be confirmed resolved: mark `unresolved` with reason.
+## AI must do
+1. Read the original code review and the address ledger.
+2. Run `git diff` since the address commit started.
+3. For each MUST-FIX, check:
+   - The change exists in the diff.
+   - It actually resolves the finding (not just renames or comments).
+   - No new behavior was introduced beyond what was needed.
+4. For each accepted SHOULD-FIX, check the same.
+5. Run the phase's verification commands. Confirm zero new failures.
+6. Cross-check `.ai/FOLLOWUPS.md` for deferred items — each must reference the original finding.
 
-Re-run deviation check: `python .ai/kit/scripts/deviation-check.py {{PLAN_ID}} {{PHASE_NUMBER}}`. Confirm the address pass did not itself introduce out-of-scope changes.
+## Output format
+Write to `.ai/reviews/<plan-id>-phase-<phase_number>.verify.md`:
+```markdown
+# Verify: <plan-id> phase <n>
+Date: <yyyy-mm-dd>
 
-Outcome:
-- All must-fix resolved AND no new deviations → set phase `status: done` in plan. Advance STATE to INTEGRATE.
-- Otherwise → loop back to REVIEW_ADDRESS with explicit list of unresolved.
+## Resolution table
+| Finding | Severity | Resolved? | Evidence |
+|---|---|---|---|
 
-{{> _partials/exit }}
+## Verification commands
+- <cmd>: PASS/FAIL
+- ...
+
+## Verdict
+PASS | UNRESOLVED — loop back to review-address.
+```
+
+If PASS, advance STATE.md `status` to `PHASE_VERIFIED` and set phase status to `done` in the plan front matter.
+
+## Constraints
+- Be strict. "Looks resolved" is not a verdict. Cite diff lines.
+- Never advance status on UNRESOLVED.
+- Do not modify code. This is a check, not a fix.
+
+{{> _partials/postamble-wrap }}

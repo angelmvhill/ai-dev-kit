@@ -30,8 +30,12 @@ Initialize the ai-dev-kit workflow in this project.
 
 ## AI must do
 1. Confirm `project_root` exists and is a git repo. If not, stop.
-2. Check whether `.ai/` already exists. If yes, do not overwrite — report contents and skip step 3.
-3. Create the directory layout:
+2. Attach the kit at `.ai/kit` if missing:
+   - **Preferred:** run `scripts/init_project.py` from the kit (or the global Cursor skill `init-ai-dev-kit`) with `--project-root` and `--project-name`.
+   - **Manual:** `git submodule add https://github.com/angelmvhill/ai-dev-kit.git .ai/kit` then `git -C .ai/kit checkout v0.2.0`.
+   - **Local dev:** set `AI_DEV_KIT_LOCAL` to a local kit clone; the script junctions `.ai/kit` instead of adding a submodule.
+   - If `.ai/kit` already exists, do not re-attach — report its pinned version and continue.
+3. Create the directory layout (skip any path that already exists):
    ```
    .ai/
    ├── PROJECT.md

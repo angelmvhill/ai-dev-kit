@@ -1,0 +1,15 @@
+---
+description: Orient to ai-dev-kit workflow — read .ai/STATE.md before acting; use meta/route when unsure
+alwaysApply: true
+---
+
+# ai-dev-kit workflow
+
+Before non-trivial work in this project:
+
+1. Read `.ai/STATE.md` (workflow cursor), `.ai/PROJECT.md` (charter), and `.ai/kit/CONVENTIONS.md` (house rules).
+2. Resolve prompts in this order: `.ai/overrides/<path>` first, then `.ai/kit/prompts/<path>`.
+3. When unsure which prompt to run, load `.ai/kit/prompts/meta/route.md`.
+4. Before ending a session, use `.ai/kit/prompts/meta/session-wrap.md` — the only safe stopping point.
+
+Do not edit files under `.ai/kit/`. Port kit changes upstream to the ai-dev-kit repository and bump the pinned version.

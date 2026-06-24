@@ -8,9 +8,40 @@ A git repo of prompt templates, schemas, and a state-machine workflow definition
 
 ## Quick start in a new project
 
+**Recommended — bootstrap script (cross-platform):**
+
 ```bash
 cd <your-project>
-git submodule add <kit-url> .ai/kit
+python path/to/ai-dev-kit/scripts/init_project.py \
+  --project-root . \
+  --project-name my-project
+```
+
+PowerShell:
+
+```powershell
+cd <your-project>
+python C:\ai-dev-kit\scripts\init_project.py `
+  --project-root (Get-Location) `
+  --project-name my-project
+```
+
+The script attaches `.ai/kit` as a git submodule (pinned to `v0.2.0`), scaffolds `.ai/` from templates, and writes `.cursor/rules/ai-dev-kit-workflow.mdc`.
+
+**Local kit override (dev machines):**
+
+```powershell
+$env:AI_DEV_KIT_LOCAL = "C:\ai-dev-kit"
+python C:\ai-dev-kit\scripts\init_project.py --project-root . --project-name my-project
+```
+
+**Cursor global skill:** install `~/.cursor/skills/init-ai-dev-kit/` and ask the agent to "init ai-dev-kit" in any workspace.
+
+**Manual (bash):**
+
+```bash
+cd <your-project>
+git submodule add https://github.com/angelmvhill/ai-dev-kit.git .ai/kit
 cd .ai/kit && git checkout v0.2.0 && cd ../..
 mkdir -p .ai/overrides .ai/notes .ai/briefs .ai/plans .ai/reviews
 cp .ai/kit/templates/project.template.md  .ai/PROJECT.md
@@ -30,7 +61,7 @@ Fill in PROJECT.md, then run `planning/charter` (or skip to `planning/plan-creat
 - `schemas/` — front-matter and section contracts for project artifacts
 - `prompts/` — stage trigger prompts and shared partials
 - `templates/` — blank project artifacts to copy into a new project
-- `scripts/` — mechanical checks (deviation, overlap, plans index)
+- `scripts/` — bootstrap (`init_project.py`) and mechanical checks (deviation, overlap, plans index)
 
 ## Workflow at a glance
 

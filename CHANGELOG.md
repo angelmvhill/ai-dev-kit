@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.1 — bootstrap tooling
+- Add `scripts/init_project.py` for cross-platform project bootstrap (submodule, scaffold, Cursor rule)
+- Add `templates/ai-dev-kit-workflow.mdc.template` for per-project Cursor orientation
+- Update `init-project.md` and README with script, PowerShell, and Cursor skill docs
+- Fix `kit.yaml.template` version drift
+
 ## v0.2.0 — workflow restructure + reconciliation
 Restructured the prompt set for production-grade execution and reconciled all docs, schemas, and prompts so they no longer contradict each other.
 

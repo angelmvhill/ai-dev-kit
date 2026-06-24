@@ -37,7 +37,8 @@ Review a draft dev plan. Decide whether it will produce **production-level code*
    - **Approve**: if every criterion is PASS, write "APPROVED — plan is production-ready" plus a 3-bullet summary of why.
    - **Revise**: if any WEAK or FAIL, output a structured, **token-aware revision prompt** the user can hand back to the planning agent. Format as numbered list, grouped by phase, with each item phrased as a concrete instruction ("Phase 3, file `engine.py`: specify which task owns timer state").
 4. Briefly explain each proposed change in **1 sentence**.
-5. Confirm no key details or architecture components from the brief or prior revisions have been lost. List any that are missing.
+5. Confirm no key details or architecture components from the brief have been lost. List any that are missing. (Comparison against prior plan revisions is `plan-revise`'s job, not this first review.)
+6. Advance STATE: `status: PLAN_REVIEWED`, `next_action: planning/plan-redteam`, `last_prompt: planning/plan-review`, `last_updated` (today).
 
 ## Output format
 Write to `.ai/reviews/<plan-id>.review.md`:

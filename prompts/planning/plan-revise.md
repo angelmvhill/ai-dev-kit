@@ -29,6 +29,7 @@ Revise the dev plan to address feedback. Preserve every architecture detail from
 4. Bump `version` in front matter (patch for typo/clarity fixes, minor for structural changes, major for scope or architecture changes). Set `status: in-review`.
 5. Prepend a **Changelog** section to the plan body listing every change made this revision, grouped by phase, citing which review item drove it.
 6. Run a **lost-detail check**: compare against the prior version section by section. Any architecture component, contract, invariant, or test requirement that was in the prior version and is no longer present must be either present in the new version or listed in the changelog with an explicit deletion reason.
+7. Advance STATE: `status: PLAN_IN_REVIEW`, `next_action: human approval — flip the plan front matter to status: approved AND set STATE.status: PLAN_APPROVED, then run execution/phase-execute`, `last_prompt: planning/plan-revise`, `last_updated` (today).
 
 ## Output format
 Updated plan file with:

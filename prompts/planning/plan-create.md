@@ -38,6 +38,7 @@ Write the dev plan as an **implementation-ready engineering document for this re
    - **Exact commit message** for the phase (one line, conventional-commit style if repo uses it).
 6. Add a **Phase 0** if any prerequisite is needed (env, deps, scaffolding).
 7. End with a **Risks & rollback** section: what could go wrong per phase, and how to back out.
+8. Advance STATE: `status: PLAN_DRAFT`, `active_plan: <NNN-slug>`, `next_action: planning/plan-review`, `last_prompt: planning/plan-create`, `last_updated` (today).
 
 ## Code standards the plan must enforce
 - Explicit and deterministic. No "refactor as needed" language.

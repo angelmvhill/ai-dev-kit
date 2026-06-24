@@ -15,7 +15,7 @@ outputs:
 Read and understand the repository. Produce a structured map an implementation agent (or you, in a later session) can rely on without re-reading the codebase.
 
 ## User must provide
-- **focus_area** (optional): if the upcoming work targets a subsystem (e.g., "weather ingestion pipeline"), name it. AI will go deeper there.
+- **focus_area** (optional): if the upcoming work targets a subsystem (e.g., "data ingestion pipeline"), name it. AI will go deeper there.
 - **depth**:
   - `shallow` — top-level dirs, README, conventions only. ~5 min read.
   - `standard` — adds module-level summaries for code dirs. ~15 min read.
@@ -36,6 +36,7 @@ Read and understand the repository. Produce a structured map an implementation a
 4. Identify **schemas**: typed dataclasses, frozen records, timestamp conventions (UTC vs local).
 5. Identify **test patterns**: what a "good test" looks like in this repo.
 6. Note any **landmines**: vague abstractions, mixed concerns, places where conventions break down.
+7. Advance STATE: `status: DISCOVERY`, `next_action: planning/plan-create`, `last_prompt: discovery/understand-codebase`, `last_updated` (today).
 
 ## Output format
 Write to `.ai/notes/codebase-map-<yyyy-mm-dd>.md`:

@@ -35,6 +35,7 @@ Address findings from a code review of Phase **{{PHASE_NUMBER}}** of plan **{{PL
 3. Apply FIXes. Confirm scope via `git diff --name-only` — only review-referenced files should be touched.
 4. Run the phase's verification commands. All previously passing tests must still pass.
 5. Update the results file (if the plan specifies one) with the new evidence.
+6. Advance STATE: `status: PHASE_ADDRESSED`, `next_action: review/verify`, `last_prompt: review/review-address`, `last_updated` (today). (This is the STATE workflow cursor; do not flip the *plan's* phase status — `verify` does that.) **Exception:** if any finding is left in DISPUTE awaiting the user, do not advance — leave `status: PHASE_REVIEWED` and set `next_action` to the user decision needed.
 
 ## Output format
 1. **Address ledger** — table: `finding | FIX/DEFER/DISPUTE | summary`.

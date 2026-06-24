@@ -28,8 +28,8 @@ If any precondition fails, stop and report.
 3. For PR-only: draft the PR description using the phase plan section and acceptance criteria results.
 4. After integration:
    - Mark the phase as `integrated` in the plan front matter.
-   - If more phases remain: set STATE `status` back to `PLAN_APPROVED`, `active_phase` to next pending.
-   - If no phases remain: set STATE `status` to `CHARTER` (ready for next piece of work) and append a plan-complete entry to JOURNAL.
+   - If more phases remain: set STATE `status: PLAN_APPROVED`, `current_phase` to the next pending phase, `next_action: execution/phase-execute`.
+   - If no phases remain: set the plan front matter `status: done`, set STATE `status: DONE`, `next_action: pick next brief (new CHARTER cycle)`, and append a plan-complete entry to JOURNAL.
 
 ## Output format
 - Merge/PR result with hash or PR URL.

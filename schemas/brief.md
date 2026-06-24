@@ -1,6 +1,6 @@
 # BRIEF schema
 
-Filename: `.ai/plans/NNN-<slug>.brief.md`
+Filename: `.ai/briefs/NNN-<slug>.brief.md`
 Authored by: human (NEVER by LLM)
 
 The brief defines WHAT and WHY. It is the source of truth for the plan that follows.

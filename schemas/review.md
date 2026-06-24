@@ -1,6 +1,6 @@
 # Review schema
 
-Filename: `.ai/plans/NNN-<slug>.review.md` (or `.redteam.md`)
+Filename: `.ai/reviews/NNN-<slug>.review.md` (or `.redteam.md`, or `NNN-<slug>-phase-<n>.code-review.md`)
 
 Shared shape across plan reviews, code reviews, redteam reviews, quant validations. Multiple review types may coexist in one file (sections labeled by review_type).
 

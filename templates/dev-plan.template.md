@@ -3,7 +3,7 @@ id: NNN
 slug: <kebab-case>
 version: 0.1.0
 status: draft
-tier: feature|component|project
+tier: patch|feature|component|project
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 depends_on: []

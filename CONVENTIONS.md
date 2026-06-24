@@ -4,11 +4,11 @@ These apply to every AI session that uses this kit. A project's `.ai/CONVENTIONS
 
 ## Branching
 - One branch per phase: `phase/<plan-id>-<phase-num>-<slug>`.
-- Main is always green. No direct commits to main except at INTEGRATE.
+- Main is always green. No direct commits to main except at integrate (`prompts/operations/integrate.md`).
 
 ## Commits
 - Conventional commits with plan/phase reference (see prompts/operations/commit-message.md).
-- Commits happen at INTEGRATE, not during EXECUTE.
+- Commits happen at integrate (`prompts/operations/integrate.md`), not during phase execution (`prompts/execution/phase-execute.md`).
 
 ## File scope
 - Never modify files outside a phase's `files_allowed` ∪ plan's `modules_touched`. If a change requires it, halt and document under Scope-questions in the review file.

@@ -1,6 +1,6 @@
 # JOURNAL schema
 
-Filename: `.ai/JOURNAL.md`. Append-only. New entries go at the top.
+Filename: `.ai/JOURNAL.md`. Append-only history (never edit past entries). New entries are prepended at the top (newest first).
 
 Entry format:
 

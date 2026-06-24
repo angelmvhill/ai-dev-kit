@@ -17,7 +17,7 @@ outputs:
 Implement Phase **{{PHASE_NUMBER}}** of plan **{{PLAN_ID}}**. Nothing else.
 
 ## User must provide
-- **plan_id**: e.g., `003-weather-ingest`.
+- **plan_id**: e.g., `003-factor-ingest`.
 - **phase_number**: integer.
 - (Implicit) the plan must be `status: approved` in its front matter. If not, stop.
 
@@ -49,7 +49,8 @@ Forbidden without explicit user approval:
 8. If a test fails, determine whether it was caused by this phase. Do not stash/reset/revert unrelated user work without approval. Use only safe read-only Git commands to isolate cause. Report pre-existing failures clearly and separately from new ones.
 9. Verify **every** acceptance criterion from Phase {{PHASE_NUMBER}}. Include pass/fail evidence inline in the final response and in the results file if the plan calls for one.
 10. Create the phase commit **only after all required phase checks pass**, using the exact commit message specified in the phase. Do not amend or squash unless the plan says to.
-11. Stop. Do **not** proceed to the next phase.
+11. Advance STATE: `status: PHASE_IMPLEMENTED`, `current_phase: {{PHASE_NUMBER}}`, `next_action: review/code-review`, `last_prompt: execution/phase-execute`, `last_updated` (today).
+12. Stop. Do **not** proceed to the next phase.
 
 ## Output format
 Final message must contain, in order:

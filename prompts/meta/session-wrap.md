@@ -17,7 +17,7 @@ Wrap the current session so the next session can pick up cleanly.
 1. Read `.ai/STATE.md` and the latest `.ai/JOURNAL.md` entries (last 5).
 2. Run `git status` and `git diff --stat` to see uncommitted changes.
 3. Update `STATE.md` to reflect the true current position. Do not lie about status — if a phase is half-done, say so explicitly in the `## Recent activity` section. Fields to update: `status`, `active_plan`, `current_phase`, `last_updated`, `last_session`, `last_prompt`, `next_action`, `blockers`.
-4. Append a multi-line JOURNAL entry: timestamp, what was done, what is in-progress, what is blocked, what to do next.
+4. Prepend a multi-line JOURNAL entry at the top following `schemas/journal.md` (Did / Learned / Decided / Next): what was done, what is in-progress, what is blocked, what to do next.
 5. Identify the exact prompt the next session should run to resume — write it to STATE's `next_action`.
 
 ## Output format

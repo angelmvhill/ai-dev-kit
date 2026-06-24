@@ -1,12 +1,13 @@
 # Dev plan schema
 
-Filename: `.ai/plans/NNN-<slug>.md`
+Filename: `.ai/plans/NNN-<slug>.plan.md`
 
 ```markdown
 ---
 id: NNN
 slug: <kebab-case>
-status: draft|in-review|approved|executing|review|done|killed
+version: 0.1.0
+status: draft|in-review|approved|done|killed
 tier: patch|feature|component|project
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
@@ -15,7 +16,8 @@ modules_touched:
   - <path>
 current_phase: <int>
 total_phases: <int>
-brief: <relative path to brief>
+brief: <relative path to brief, e.g. ../briefs/NNN-<slug>.brief.md>
+codebase_map: <relative path to codebase map, or null>
 ---
 
 ## Context
@@ -33,7 +35,7 @@ brief: <relative path to brief>
 ## Phases
 
 ### Phase 1: <name>
-- status: pending|active|done
+- status: pending|active|done|integrated
 - files_allowed:
   - <path or glob>
 - acceptance:

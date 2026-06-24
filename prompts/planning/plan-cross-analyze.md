@@ -14,7 +14,7 @@ outputs:
 {{> _partials/preamble-orient }}
 
 ## Task
-Another engineer (different LLM or different session) revised the same plan. Compare their version against yours. Classify every difference, then produce an updated plan that merges the novel and additive ideas while rejecting the unnecessary and repetitive ones.
+Another engineer in a different session revised the same plan. Compare their version against yours. Classify every difference, then produce an updated plan that merges the novel and additive ideas while rejecting the unnecessary and repetitive ones.
 
 ## User must provide
 - **own_plan_path**: your current revised plan.

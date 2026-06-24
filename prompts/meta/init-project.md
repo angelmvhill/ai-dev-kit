@@ -11,6 +11,10 @@ outputs:
   - .ai/STATE.md
   - .ai/JOURNAL.md
   - .ai/FOLLOWUPS.md
+  - .ai/DECISIONS.md
+  - .ai/CONVENTIONS.md
+  - .ai/overrides/ (empty)
+  - .ai/notes/ (empty)
   - .ai/briefs/ (empty)
   - .ai/plans/ (empty)
   - .ai/reviews/ (empty)
@@ -26,7 +30,7 @@ Initialize the ai-dev-kit workflow in this project.
 
 ## AI must do
 1. Confirm `project_root` exists and is a git repo. If not, stop.
-2. Check whether `.ai/` already exists. If yes, do not overwrite — report contents and stop.
+2. Check whether `.ai/` already exists. If yes, do not overwrite — report contents and skip step 3.
 3. Create the directory layout:
    ```
    .ai/
@@ -34,14 +38,19 @@ Initialize the ai-dev-kit workflow in this project.
    ├── STATE.md
    ├── JOURNAL.md
    ├── FOLLOWUPS.md
+   ├── DECISIONS.md
+   ├── CONVENTIONS.md
+   ├── overrides/
+   ├── notes/
    ├── briefs/
    ├── plans/
    └── reviews/
    ```
-4. Populate `PROJECT.md` by copying `templates/project.template.md`. Set front matter `name`, `started` (today, UTC), `type` (`research`|`build`|`hybrid` — ask the user if unclear). Fill body sections from `project_description`: Problem, Goal / hypothesis, Success criteria, Scope, Out of scope, Key references, Conventions notes. Anything not provided becomes a `TODO:` line in the relevant section.
-5. Populate `STATE.md` by copying `templates/state.template.md`. Set: `status: CHARTER`, `last_updated` (today), `last_session: bootstrap`, `last_prompt: meta/init-project`, `next_action: write PROJECT.md`, `kit_version` (pin from kit `CHANGELOG.md`). Leave `active_plan`, `current_phase`, `blockers` at their default values from the template.
-6. Populate `FOLLOWUPS.md` by copying `templates/followups.template.md`. Create empty `JOURNAL.md` with a single header line: `# Journal`.
-7. Print the resulting tree and the `TODO:` items in `PROJECT.md` that the user must complete before running any other prompt.
+4. Check if `PROJECT.md`, `STATE.md`, `JOURNAL.md`, `FOLLOWUPS.md`, `DECISIONS.md`, and `CONVENTIONS.md` already exist. For the files that exist, do not overwrite — report their contents and skip the corresponding steps.
+5. Populate `PROJECT.md` by copying `templates/project.template.md`. Set front matter `name`, `started` (today, UTC), `type` (`research`|`build`|`hybrid` — ask the user if unclear). Fill body sections from `project_description`: Problem, Goal / hypothesis, Success criteria, Scope, Out of scope, Key references, Conventions notes. Anything not provided becomes a `TODO:` line in the relevant section.
+6. Populate `STATE.md` by copying `templates/state.template.md`. Set: `status: INIT`, `last_updated` (today), `last_session: bootstrap`, `last_prompt: meta/init-project`, `next_action: planning/charter`, `kit_version` (pin from kit `CHANGELOG.md`). Leave `active_plan`, `current_phase`, `blockers` at their default values from the template.
+7. Populate `FOLLOWUPS.md` by copying `templates/followups.template.md`. Create `JOURNAL.md` with a single header line: `# Journal`. Create `DECISIONS.md` with a single header line: `# Decisions`. Create `.ai/CONVENTIONS.md` with a header line noting it extends `.ai/kit/CONVENTIONS.md` and is the project-local override.
+8. Print the resulting tree and the `TODO:` items in `PROJECT.md` that the user must complete before running any other prompt.
 
 ## Output format
 - File tree (literal).

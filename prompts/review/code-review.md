@@ -36,6 +36,7 @@ Review the code changes from Phase **{{PHASE_NUMBER}}** of plan **{{PLAN_ID}}**.
    - **SHOULD-FIX** — worth fixing this phase if cheap, else defer to FOLLOWUPS.
    - **NIT** — style, naming, comment. Optional.
 5. Note any **deviations from the plan** that the executor flagged or that you discovered.
+6. Advance STATE: `status: PHASE_REVIEWED`, `next_action: review/review-address`, `last_prompt: review/code-review`, `last_updated` (today).
 
 ## Output format
 Write to `.ai/reviews/<plan-id>-phase-<phase_number>.code-review.md`:
